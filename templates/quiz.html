@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Quiz</title>
+<style>
+  body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: #fff4e6;
+    color: #673ab7;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+  }
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .question {
+    font-size: 1.4rem;
+    margin: 20px 0 8px;
+  }
+  input[type="text"] {
+    padding: 12px 15px;
+    font-size: 1.2rem;
+    width: 100%;
+    border: 2px solid #9575cd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  button {
+    font-size: 1.4rem;
+    padding: 14px 40px;
+    background: #673ab7;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(103, 58, 183, 0.6);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  button:hover {
+    background: #512da8;
+    transform: scale(1.1);
+  }
+  .score-container {
+    background: white;
+    border-radius: 20px;
+    padding: 50px 35px;
+    box-shadow: 0 10px 30px rgba(103, 58, 183, 0.2);
+    max-width: 400px;
+    margin: 60px auto;
+  }
+  .score {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+  .points {
+    font-size: 1.5rem;
+    color: #4527a0;
+    margin-bottom: 25px;
+  }
+  .message {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #7e57c2;
+  }
+  a.button-link {
+    display: inline-block;
+    margin-top: 30px;
+    font-size: 1.3rem;
+    text-decoration: none;
+    color: #fff;
+    background-color: #673ab7;
+    padding: 12px 40px;
+    border-radius: 50px;
+    box-shadow: 0 6px 18px rgba(103, 58, 183, 0.6);
+    transition: background-color 0.3s ease;
+  }
+  a.button-link:hover {
+    background-color: #512da8;
+  }
+</style>
+</head>
+<body>
+
+{% if score is defined %}
+  <div class="score-container" role="main" aria-live="polite">
+    <h1>Quiz Completed!</h1>
+    <div class="score">{{ score }} / {{ total }}</div>
+    <div class="points">Points earned: {{ points }}</div>
+    <div class="message">{{ message }}</div>
+    <a href="{{ url_for('subjects') }}" class="button-link">Back to Subjects</a>
+  </div>
+{% else %}
+<form action="{{ url_for('set_language') }}" method="post" style="text-align: right; margin: 15px;">
+  <select name="language" onchange="this.form.submit()">
+    <option value="english" {% if session.get('language') == 'english' %}selected{% endif %}>English</option>
+    <option value="hindi" {% if session.get('language') == 'hindi' %}selected{% endif %}>हिन्दी</option>
+    <option value="gujarati" {% if session.get('language') == 'gujarati' %}selected{% endif %}>ગુજરાતી</option>
+  </select>
+</form>
+
+  <h1>Quiz Time!</h1>
+  <form method="POST" novalidate>
+    {% for idx, quiz in quizzes %}
+      <div class="question">{{ quiz.question }}</div>
+      <input type="text" name="{{ idx }}" placeholder="Your answer" required autocomplete="off" />
+    {% endfor %}
+    <button type="submit">Submit Answers</button>
+  </form>
+  <a href="{{ url_for('lesson', lesson_id=lesson_id) }}" class="button-link" style="margin-top: 30px; display: inline-block;">Back to Lesson</a>
+{% endif %}
+
+</body>
+</html>

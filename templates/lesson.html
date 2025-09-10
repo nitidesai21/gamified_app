@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>{{ lesson.title }}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+  body {
+    font-family: 'Fredoka One', cursive, sans-serif;
+    background: #f8f3f7;
+    margin: 0;
+    padding: 50px 20px;
+    color: #5a3e63;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    max-width: 700px;
+    background: #ffffffcc;
+    padding: 40px 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(150, 115, 175, 0.2);
+    position: relative;
+    text-align: center;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  h1 {
+    font-size: 3rem;
+    color: #a570b6;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 4px #d7b4e4;
+  }
+
+  .story-content {
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: #6e4a82;
+    margin-bottom: 35px;
+    white-space: pre-wrap;
+  }
+
+  .btn-group a {
+    display: inline-block;
+    background: #b98cc8;
+    color: white;
+    text-decoration: none;
+    padding: 15px 50px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    margin: 10px 15px;
+    box-shadow: 0 6px 20px rgba(185, 140, 200, 0.5);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-group a:hover, .btn-group a:focus {
+    background-color: #9c70bd;
+    transform: scale(1.1);
+    outline: none;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container {
+      padding: 30px 20px;
+    }
+    h1 {
+      font-size: 2.2rem;
+    }
+    .story-content {
+      font-size: 1.1rem;
+    }
+    .btn-group a {
+      padding: 12px 35px;
+      font-size: 1rem;
+      margin: 8px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" role="main" aria-labelledby="lesson-title">
+  <h1 id="lesson-title">{{ lesson.title }}</h1>
+  <div class="story-content">{{ lesson.content | safe }}</div>
+
+  <div class="btn-group">
+    <a href="{{ url_for('quiz', lesson_id=lesson.id) }}">Take Quiz</a>
+    <a href="{{ url_for('lessons', subject=lesson.subject) }}">Back to Lessons</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </div>
+</div>
+
+</body>
+</html>

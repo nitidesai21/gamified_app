@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Scores</title>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+  }
+  th, td {
+    border: 1px solid #aaa;
+    padding: 10px 15px;
+    text-align: center;
+  }
+  th {
+    background-color: #6a4c93;
+    color: white;
+  }
+  tbody tr:nth-child(even) {
+    background-color: #f3eaf9;
+  }
+  h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin-top: 30px;
+    color: #6a4c93;
+  }
+  a.logout-link {
+    display: block;
+    width: 100px;
+    margin: 30px auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #6a4c93;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(106, 76, 147, 0.7);
+  }
+  a.logout-link:hover {
+    background-color: #593d7a;
+  }
+</style>
+</head>
+<body>
+  <h1>Quiz Scores</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Lesson ID</th>
+        <th>Score</th>
+        <th>Total</th>
+        <th>Points Earned</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for score in scores %}
+      <tr>
+        <td>{{ score.user.username }}</td>
+        <td>{{ score.lesson_id }}</td>
+        <td>{{ score.score }}</td>
+        <td>{{ score.total }}</td>
+        <td>{{ score.points_earned }}</td>
+        <td>{{ score.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+</body>
+</html>

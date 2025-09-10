@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>{{ subject }} Lessons</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+  body {
+    font-family: 'Fredoka One', cursive, sans-serif;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 100vh;
+    color: #3e1f47;
+  }
+
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(255, 213, 129, 0.8);
+  }
+
+  p#welcome-text {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.2rem;
+    color: #5b3e6a;
+  }
+
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .lesson-card {
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(253, 160, 133, 0.5);
+    width: 240px;
+    padding: 25px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-decoration: none;
+    color: #3e1f47;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .lesson-card:hover,
+  .lesson-card:focus {
+    transform: translateY(-12px);
+    box-shadow: 0 18px 40px rgba(253, 160, 133, 0.85);
+    outline: none;
+  }
+
+  .lesson-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  /* Back and Logout links */
+  .nav-links {
+    margin-top: 40px;
+    text-align: center;
+  }
+  .nav-links a {
+    font-size: 1.1rem;
+    color: #3e1f47;
+    text-decoration: none;
+    font-weight: 700;
+    margin: 0 15px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .nav-links a:hover,
+  .nav-links a:focus {
+    border-color: #fda085;
+    outline: none;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 700px) {
+    .cards-container {
+      justify-content: center;
+    }
+    .lesson-card {
+      width: 90%;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<h1>{{ subject }} Lessons</h1>
+<p id="welcome-text">Welcome, {{ session.username }}! Choose a story to begin learning.</p>
+
+<div class="cards-container">
+  {% for lesson in lessons %}
+    <a href="{{ url_for('lesson', lesson_id=lesson['id']) }}" class="lesson-card" role="button" tabindex="0">
+      <h2 class="lesson-title">{{ lesson['title'] }}</h2>
+    </a>
+  {% endfor %}
+</div>
+
+<div class="nav-links">
+  <a href="{{ url_for('subjects') }}">← Back to Subjects</a> |
+  <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+
+</body>
+</html>
